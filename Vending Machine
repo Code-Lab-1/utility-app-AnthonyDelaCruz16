@@ -1,0 +1,55 @@
+# Define the menu items with codes and prices
+menu = {
+    'A1': {'item': 'Energy Bar', 'price': 3.75},
+    'A2': {'item': 'Lays', 'price': 1.50},
+    'A3': {'item': 'Corn Chips', 'price': 3.00},
+    'A4': {'item': 'Water', 'price': 2.00},
+    'B1': {'item': 'Juice', 'price': 2.00},
+    'B2': {'item': 'Chocolate', 'price': 1.50},
+    'B3': {'item': 'Dark Chocolate', 'price': 1.75},
+    'B4': {'item': 'White Chocolate', 'price': 2.25},
+}
+
+# Function to display the menu
+def display_menu():
+    print("==== Vending Machine Menu ====")
+    for code, item_info in menu.items():
+        print(f"{code}: {item_info['item']} - ${item_info['price']:.2f}")
+
+# Function to process the user's selection
+def vending_machine():
+    display_menu()
+
+    # Take user input for item selection
+    while True:
+        code = input("Enter an item code available (e.g., A2) or 'C' to Cancel: ").strip().upper()
+
+        if code == 'C':
+            print("Thank you for using this vending machine. Hope you have a great day :)!")
+            break
+
+        if code not in menu:
+            print("Incorrect code. Please enter a listed item code available.")
+            continue
+
+        item_info = menu[code]
+        item_price = item_info['price']
+
+        # Take user input for money
+        while True:
+            try:
+                user_money = float(input(f"Please insert AED{item_price:.2f}: "))
+                if user_money < item_price:
+                    print("Not enough money. Please add more.")
+                else:
+                    change = user_money - item_price
+                    print(f"Dispensing {item_info['item']}...")
+                    print(f"Change: AED{change:.2f}")
+                    break
+            except ValueError:
+                print("Incorrect input. Please enter a valid currency.")
+
+
+# Main program loop
+if __name__ == "__main__":
+    vending_machine()
